@@ -26,10 +26,10 @@ class StdOutListener(StreamListener):
             print(data)
             with open(self.fetched_tweets_filename, 'a') as tf:
                 tf.write(data)
+            return True
+        except BaseException as e:
+            print("Err on data: %s" % str(e))
         return True
-    except BaseException as e:
-        print("Err on data: %s" str(e))
-    return True
 
     def on_error(self, status):
         print(status)
