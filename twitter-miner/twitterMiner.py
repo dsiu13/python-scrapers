@@ -8,12 +8,11 @@ class TwitterStreamer():
 
     def stream_tweets(self, fetched_tweets_filename, hash_tag_list):
         # Twitter authhandler & stream api
-        listener = StdOutListener()
+        listener = StdOutListener(fetched_tweets_filename)
         auth = OAuthHandler(twitterCreds.CONSUMER_KEY, twitterCreds.CONSUMER_SECRET)
         auth.set_access_token(twitterCreds.ACCESS_TOKEN, twitterCreds.ACCESS_TOKEN_SECRET)
 
         stream = Stream(auth, listener)
-
         stream.filter(track=hash_tag_list)
 
 class StdOutListener(StreamListener):
@@ -35,7 +34,8 @@ class StdOutListener(StreamListener):
         print(status)
 
 if __name__ == "__main__":
-    hash_tag_list = ['doge']
+
+    hash_tag_list = ['doge', 'cats']
     fetched_tweets_filename = "tweets.json"
 
     twitter_streamer = TwitterStreamer()
